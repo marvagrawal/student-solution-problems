@@ -10,7 +10,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
   <style>
     body {
-      font-family:sans-serif;
+      font-family:Arial, Helvetica, sans-serif;
       background: rgba(0, 0, 0, 0.514);
       min-height: 100vh;
       background-color:  rgba(0,51,102,1);
@@ -38,8 +38,7 @@ width: 50vw;
       border-radius: 5px;
     }
     button {
-      background: rgb(8,146,208);
-      background: linear-gradient( #62cff4 and #2c67f2);
+      background-color: #1C448E;
       color: white;
       cursor: pointer;
     }
@@ -58,16 +57,17 @@ width: 50vw;
     }
     .tabs button {
       flex: 1;
-      background-color: #00333f;
+      background-color: #1C448E;
       color: #F1F1F2;
       margin: 0 5px;
     }
     .tabs button.active {
-      background-color: #F4FDFF;
+      background-color: #1C448E;
     }
-    h2{
+    h1{
       font-family:sans-serif;
       color: #F1F1F2;
+      text-align: center;
     }
     .issue {
       margin-bottom: 20px;
@@ -83,13 +83,17 @@ width: 50vw;
       border-left: 2px solid rgb(77, 77, 77);
     }
     #issue-page{
-      height: 285px;
+      height: 385px;
     }
+   
   </style>
 </head>
 <body>
   <div id="auth-page" class="container">
-    <h2 id="hh">Login/Register</h2>
+    <h1 id="hh">Student Solution Portal</h1>
+    <br>
+    <h2>Login/Register</h2>
+
     <input type="email" id="auth-email" placeholder="Email">
     <input type="password" id="auth-password" placeholder="Password">
     <button onclick="login()">Login</button>
@@ -97,6 +101,7 @@ width: 50vw;
   </div>
 
   <div id="issue-page" class="container hidden">
+    <h1>Student Solution Portal</h1>
     <b><h2>Submit an Issue</h2>
     <textarea id="issue-text" placeholder="Describe your issue here..."></textarea>
     <button onclick="submitIssue()">Submit Issue</button>
@@ -106,6 +111,7 @@ width: 50vw;
       <button id="all-issues-tab" class="active" onclick="showTab('all-issues')">All Issues</button>
       <button id="my-issues-tab" onclick="showTab('my-issues')">My Issues</button>
     </div>
+    <br><br><br>
 
     <div id="all-issues" class="issues-container"></div>
     <div id="my-issues" class="issues-container hidden"></div>

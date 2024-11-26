@@ -4,89 +4,198 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sudent Solution Portal</title>
+  <title>Student Solution Portal</title>
   <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
   <style>
+    /* Global Styles */
     body {
-      font-family:Arial, Helvetica, sans-serif;
-      background: rgba(0, 0, 0, 0.514);
-      min-height: 100vh;
-      background-color:  rgba(0,51,102,1);
- 
+      font-family: 'Inter', Arial, sans-serif;
+      background: linear-gradient(135deg, #004E64, #007D8C); /* Vibrant blue gradient */
+      color: #ffffff;
       margin: 0;
-      padding: 20px;
-      color: #F1F1F2;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
     }
+  
+    /* Main Container */
     .container {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 20px;
-      
-background: linear-gradient(159deg, rgba(0,51,102,1) 0%, rgba(15,82,186,1) 100%);
-height: 50vh;
-width: 50vw;
-      border-radius: 10px;
-     
+      max-width: 480px;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      transition: transform 0.3s ease-in-out;
+      max-height: 80vh; /* Allow scroll if content exceeds viewport height */
+      overflow-y: auto; /* Enable vertical scroll */
     }
-    input, textarea, button {
+  
+    .container:hover {
+      transform: translateY(-8px);
+    }
+  
+    /* Header */
+    h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+      font-weight: 700;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+  
+    h2 {
+      font-size: 24px;
+      margin-bottom: 30px;
+      color: #dcdcdc;
+    }
+  
+    /* Input Fields & Textarea */
+    input, textarea {
       width: 100%;
-      margin: 10px 0;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      margin: 12px 0;
+      padding: 16px;
+      border: 2px solid transparent;
+      border-radius: 12px;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 16px;
+      transition: all 0.3s ease;
     }
+  
+    input:focus, textarea:focus {
+      border-color: #1abc9c; /* Light Aqua Green */
+      background-color: rgba(255, 255, 255, 0.3);
+      outline: none;
+    }
+  
+    /* Button Styles */
     button {
-      background-color: #1C448E;
-      color: white;
+      width: 100%;
+      margin: 12px 0;
+      padding: 15px;
+      background: #1abc9c; /* Light Aqua Green */
+      color: #fff;
+      border: none;
+      font-size: 18px;
+      font-weight: 600;
+      border-radius: 12px;
       cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
+  
     button:hover {
-    
- 
-      background: linear-gradient(159deg, rgba(176,224,230,1) 0%, rgba(70,130,180,1) 100%);
+      background: #16a085; /* Slightly darker Green */
+      transform: scale(1.05);
     }
+  
+    button:active {
+      background: #1f8a70; /* Darker Green */
+      transform: scale(0.98);
+    }
+  
+    /* Tab Styles */
+    .tabs {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+  
+    .tabs button {
+      background: transparent;
+      color: #fff;
+      padding: 12px;
+      border: 2px solid #1abc9c; /* Light Aqua Green */
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  
+    .tabs button.active {
+      background-color: #1abc9c;
+      color: #fff;
+    }
+  
+    .tabs button:hover {
+      background-color: #16a085;
+    }
+  
+    /* Hidden Class */
     .hidden {
       display: none;
     }
-    .tabs {
-      display: flex;
-      justify-content: space-around;
-      margin-bottom: 20px;  
-    }
-    .tabs button {
-      flex: 1;
-      background-color: #1C448E;
-      color: #F1F1F2;
-      margin: 0 5px;
-    }
-    .tabs button.active {
-      background-color: #1C448E;
-    }
-    h1{
-      font-family:sans-serif;
-      color: #F1F1F2;
-      text-align: center;
-    }
+  
+    /* Issue and Comment Styles */
     .issue {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
       margin-bottom: 20px;
-      padding: 10px;
-      
-      border-radius: 5px;
-     background-color: #1C448E;
-     color:#F1F1F2 ;
+      border-radius: 12px;
+      border: 1px solid #1abc9c; /* Light Aqua Green */
+      color: #fff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+  
+    .issue:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+  
     .comment {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 12px;
       margin-top: 10px;
-      padding: 5px;
-      border-left: 2px solid rgb(77, 77, 77);
+      border-left: 4px solid #1abc9c; /* Light Aqua Green */
+      font-size: 14px;
+      color: #ddd;
+      border-radius: 8px;
     }
-    #issue-page{
-      height: 385px;
+  
+    /* Comment Textarea */
+    .comment textarea {
+      background-color: rgba(255, 255, 255, 0.2);
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      width: 100%;
+      font-size: 14px;
+      color: #333;
+      margin-top: 10px;
     }
-   
+  
+    /* Responsive Design */
+    @media (max-width: 480px) {
+      .container {
+        padding: 25px;
+      }
+      
+      button {
+        font-size: 16px;
+      }
+  
+      .tabs button {
+        font-size: 14px;
+      }
+  
+      .issue {
+        padding: 16px;
+      }
+    }
   </style>
+  
+  
+  
+  
 </head>
 <body>
   <div id="auth-page" class="container">
